@@ -1,0 +1,65 @@
+# built application files
+*.apk
+*.aab
+*.ap_
+
+*.hprof
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+classes/
+
+# generated files
+bin/
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Eclipse project files
+.classpath
+.project
+.settings/
+*/.classpath
+*/.project
+*/.settings/
+
+# Intellij project files
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Apple
+.DS_Store
+
+# Vim/Emacs
+*~
+
+# Maven
+target/
+
+# Gradle
+.gradle
+build
+
+# Custom
+lib
+*/test-output
+temp-testng-customsuite.xml
+**pom.xml.releaseBackup
+release.properties
+project.properties
+secrets.properties
+*/seed.txt
+gen-external-apklibs
+app/gradlew.bat
+app/gradlew
+app/gradle/wrapper/gradle-wrapper.properties
+app/gradle/wrapper/gradle-wrapper.jar
+app/seeds.txt
+app/unused.txt
+app/screenshots
