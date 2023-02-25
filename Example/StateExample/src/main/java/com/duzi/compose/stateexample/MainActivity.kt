@@ -9,6 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import com.duzi.compose.stateexample.theme.StateExampleTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    SimpleText()
+                    DemoScreen()
                 }
             }
         }
@@ -29,6 +30,19 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun SimpleText() {
-    Text("Hello World!")
+fun DemoScreen() {
+    MyTextField()
+}
+
+@Composable
+fun MyTextField() {
+
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    StateExampleTheme {
+        MyTextField()
+    }
 }
