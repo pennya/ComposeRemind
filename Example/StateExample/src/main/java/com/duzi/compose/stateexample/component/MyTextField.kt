@@ -1,13 +1,18 @@
 package com.duzi.compose.stateexample.component
 
 import androidx.compose.material3.TextField
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import com.duzi.compose.stateexample.theme.StateExampleTheme
 
 @Composable
 fun MyTextFieldStateHoisting() {
-    var textState by remember { mutableStateOf("") }
+    // rememberSaveable을 사용하여 상태를 저장할 수 있음 (환경 설정 변경 시에도 유지)
+    var textState by rememberSaveable { mutableStateOf("") }
 
     val onTextChange = { text : String ->
         textState = text

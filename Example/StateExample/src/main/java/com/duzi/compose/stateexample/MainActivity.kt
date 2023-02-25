@@ -8,8 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.duzi.compose.stateexample.component.FunctionA
-import com.duzi.compose.stateexample.component.MyTextField
+import com.duzi.compose.stateexample.component.MyTextFieldStateHoisting
 import com.duzi.compose.stateexample.theme.StateExampleTheme
 
 class MainActivity : ComponentActivity() {
@@ -31,5 +30,5 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun DemoScreen() {
-    MyTextField()
+    MyTextFieldStateHoisting()
 }
