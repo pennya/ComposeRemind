@@ -27,6 +27,8 @@ private val LightColorPalette = lightColors(
     */
 )
 
+val primaryVariant = Purple700
+
 @Composable
 fun ComposeRemindTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
