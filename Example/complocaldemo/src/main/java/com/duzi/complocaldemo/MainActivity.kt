@@ -3,13 +3,18 @@ package com.duzi.complocaldemo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.duzi.complocaldemo.ui.theme.ComposeRemindTheme
 
@@ -30,11 +35,22 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+val LocalColor = staticCompositionLocalOf { Color(0xFFffdbcf) }
+
 @Composable
 fun Composable1() {
+    val color = if (isSystemInDarkTheme()) {
+        Color(0xFFa08d87)
+    } else {
+        Color(0xFFffdbcf)
+    }
+
     Column {
         Composable2()
-        Composable3()
+
+        CompositionLocalProvider(LocalColor provides color) {
+            Composable3()
+        }
     }
 }
 
@@ -61,7 +77,10 @@ fun Composable5() {
 
 @Composable
 fun Composable6() {
-    Text("Composable 6")
+    Text(
+        text = "Composable 6",
+        modifier = Modifier.background(LocalColor.current)
+    )
 }
 
 @Composable
@@ -71,7 +90,10 @@ fun Composable7() {
 
 @Composable
 fun Composable8() {
-    Text("Composable 8")
+    Text(
+        text = "Composable 8",
+        modifier = Modifier.background(LocalColor.current)
+    )
 }
 
 @Preview(showBackground = true)
