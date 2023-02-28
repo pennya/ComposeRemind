@@ -3,6 +3,7 @@ package com.duzi.complocaldemo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -22,7 +23,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    Composable1()
                 }
             }
         }
@@ -30,14 +31,53 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+fun Composable1() {
+    Column {
+        Composable2()
+        Composable3()
+    }
+}
+
+@Composable
+fun Composable2() {
+    Composable4()
+}
+
+@Composable
+fun Composable3() {
+    Composable5()
+}
+
+@Composable
+fun Composable4() {
+    Composable6()
+}
+
+@Composable
+fun Composable5() {
+    Composable7()
+    Composable8()
+}
+
+@Composable
+fun Composable6() {
+    Text("Composable 6")
+}
+
+@Composable
+fun Composable7() {
+    Text("Composable 7")
+}
+
+@Composable
+fun Composable8() {
+    Text("Composable 8")
 }
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     ComposeRemindTheme {
-        Greeting("Android")
+        Composable1()
     }
 }
