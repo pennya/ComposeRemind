@@ -16,3 +16,4 @@ rootProject.name = "ComposeRemind"
 include ':app'
 include ':Example:StateExample'
 include ':Example:complocaldemo'
+include ':Example:slotdemo'
