@@ -12,7 +12,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-val LocalColor = staticCompositionLocalOf { Color(0xFFffdbcf) }
+val LocalColor = compositionLocalOf { Color(0xFFffdbcf) }
 
 @Composable
 fun Composable1() {
@@ -61,7 +61,14 @@ fun Composable2() {
 
 @Composable
 fun Composable3() {
-    Composable5()
+    Text(
+        text = "Composable 3",
+        modifier = Modifier.background(LocalColor.current)
+    )
+
+    CompositionLocalProvider(LocalColor provides Color.Red) {
+        Composable5()
+    }
 }
 
 @Composable
@@ -71,8 +78,18 @@ fun Composable4() {
 
 @Composable
 fun Composable5() {
-    Composable7()
-    Composable8()
+    Text(
+        text = "Composable 5",
+        modifier = Modifier.background(LocalColor.current)
+    )
+
+    CompositionLocalProvider(LocalColor provides Color.Blue) {
+        Composable7()
+    }
+    
+    CompositionLocalProvider(LocalColor provides Color.Green) {
+        Composable8()
+    }
 }
 
 @Composable
@@ -85,7 +102,10 @@ fun Composable6() {
 
 @Composable
 fun Composable7() {
-    Text("Composable 7")
+    Text(
+        text = "Composable 7",
+        modifier = Modifier.background(LocalColor.current)
+    )
 }
 
 @Composable
