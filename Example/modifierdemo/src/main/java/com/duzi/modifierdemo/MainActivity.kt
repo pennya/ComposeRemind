@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -38,15 +39,28 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DemoScreen() {
     val modifier = Modifier
+        .padding(all = 10.dp)
         .border(width = 2.dp, color = Color.Blue)
+
+    // 모디파이어 순서 영향도.
+    val modifier2 = Modifier
+        .border(width = 2.dp, color = Color.Red)
         .padding(all = 10.dp)
 
-    Text(
-        text = "Hello Compose!",
-        modifier = modifier,
-        fontSize = 40.sp,
-        fontWeight = FontWeight.Bold
-    )
+    Column {
+        Text(
+            text = "Hello Compose!",
+            modifier = modifier,
+            fontSize = 40.sp,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            text = "Hello Compose!",
+            modifier = modifier2,
+            fontSize = 40.sp,
+            fontWeight = FontWeight.Bold
+        )
+    }
 }
 
 @Preview(showBackground = true)
