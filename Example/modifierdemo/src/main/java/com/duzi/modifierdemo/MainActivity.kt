@@ -102,7 +102,9 @@ fun DemoScreen() {
                 .border(2.dp, Color.Black)
                 .clickable {
                     // do something
-                    Toast.makeText(context, "Clicked!", Toast.LENGTH_SHORT).show()
+                    Toast
+                        .makeText(context, "Clicked!", Toast.LENGTH_SHORT)
+                        .show()
                 },
             contentAlignment = Alignment.Center
         ) {
@@ -111,6 +113,13 @@ fun DemoScreen() {
                 modifier = Modifier
                     .size(200.dp, 100.dp)
                     .alpha(0.3f)
+            )
+            Spacer(modifier = Modifier.size(width = 0.dp, height = 10.dp))
+            Text(
+                text = "Arsenal",
+                fontSize = 30.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.align(Alignment.TopStart)
             )
         }
     }
