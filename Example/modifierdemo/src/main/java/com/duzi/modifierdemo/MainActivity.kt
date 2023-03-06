@@ -1,10 +1,12 @@
 package com.duzi.modifierdemo
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -42,6 +45,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun DemoScreen() {
+    val context = LocalContext.current
+
     val modifier = Modifier
         .padding(all = 10.dp)
         .border(width = 2.dp, color = Color.Blue)
@@ -94,7 +99,11 @@ fun DemoScreen() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 10.dp)
-                .border(2.dp, Color.Black),
+                .border(2.dp, Color.Black)
+                .clickable {
+                    // do something
+                    Toast.makeText(context, "Clicked!", Toast.LENGTH_SHORT).show()
+                },
             contentAlignment = Alignment.Center
         ) {
             CustomImage(
