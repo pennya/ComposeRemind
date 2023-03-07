@@ -3,12 +3,14 @@ package com.duzi.rowcoldemo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -38,9 +40,26 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen() {
 
-    Column {
-        Row {
-            Column {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Cyan),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.Yellow),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column(
+                modifier = Modifier
+                    .size(100.dp, 400.dp)
+                    .padding(4.dp)
+                    .background(Color.Blue),
+                verticalArrangement = Arrangement.SpaceEvenly,
+            ) {
                 TextCell(
                     text = "1",
                     modifier = Modifier
@@ -52,20 +71,32 @@ fun MainScreen() {
                 TextCell(text = "3")
             }
 
-            Column {
+            Column(
+                modifier = Modifier
+                    .padding(4.dp)
+                    .background(Color.LightGray)
+            ) {
                 TextCell(text = "4")
                 TextCell(text = "5")
                 TextCell(text = "6")
             }
 
-            Column {
+            Column(
+                modifier = Modifier
+                    .padding(4.dp)
+                    .background(Color.Magenta)
+            ) {
                 TextCell(text = "7")
                 TextCell(text = "8")
                 TextCell(text = "9")
             }
         }
 
-        Row {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.Green)
+        ) {
             TextCell(text = "10")
             TextCell(text = "11")
             TextCell(text = "12")
