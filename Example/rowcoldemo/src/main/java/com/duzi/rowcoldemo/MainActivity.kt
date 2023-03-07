@@ -13,6 +13,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.HorizontalAlignmentLine
+import androidx.compose.ui.layout.LastBaseline
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -95,11 +97,12 @@ fun MainScreen() {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .height(300.dp)
                 .background(Color.Green)
         ) {
-            TextCell(text = "10")
-            TextCell(text = "11")
-            TextCell(text = "12")
+            TextCell(text = "10", Modifier.align(Alignment.Top))
+            TextCell(text = "11", Modifier.align(Alignment.CenterVertically))
+            TextCell(text = "12", Modifier.align(Alignment.Bottom))
         }
     }
 }
