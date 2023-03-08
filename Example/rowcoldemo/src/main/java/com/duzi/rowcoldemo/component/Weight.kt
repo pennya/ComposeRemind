@@ -1,5 +1,6 @@
 package com.duzi.rowcoldemo.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
@@ -43,15 +44,30 @@ fun Content() {
 fun MainScreen() {
     //BoxWithConstraints
     Box(
-        propagateMinConstraints = false,
+        modifier = Modifier.background(Color.Cyan).padding(12.dp).border(2.dp, color = Color.Black),
+        propagateMinConstraints = true,
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
+                .wrapContentSize()
                 .width(150.dp)
+                .height(150.dp)
+                .background(Color.Yellow)
+                .padding(12.dp)
                 .border(2.dp, color = Color.Black)
         ) {
             Text(text = "12123123")
         }
     }
+
+    /*Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .wrapContentSize()
+            .width(150.dp)
+            .border(2.dp, color = Color.Black)
+    ) {
+        Text(text = "12123123")
+    }*/
 }
