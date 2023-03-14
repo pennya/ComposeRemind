@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.duzi.compose.remind.component.ColorBox
 import com.duzi.compose.remind.component.DemoSlider
+import com.duzi.compose.remind.component.exampleLayout
 import com.duzi.compose.remind.ui.theme.ComposeRemindTheme
 
 class MainActivity : ComponentActivity() {
@@ -35,7 +36,11 @@ class MainActivity : ComponentActivity() {
                     }
                 }*/
                 Box(modifier = Modifier.size(100.dp, 80.dp).background(Color.Yellow)) {
-                    ColorBox(modifier = Modifier.background(Color.Blue))
+                    ColorBox(
+                        modifier = Modifier
+                            .exampleLayout(50, 80)
+                            .background(Color.Blue)
+                    )
                 }
             }
         }
