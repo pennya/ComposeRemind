@@ -1,10 +1,13 @@
 package com.duzi.constraintlayoutdemo.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ChainStyle
@@ -67,9 +70,34 @@ fun ChainScreen() {
     }
 }
 
+@Composable
+fun BarrierScreen() {
+    ConstraintLayout(Modifier.size(width = 400.dp, height = 400.dp)) {
+        val (button1, button2, button3) = createRefs()
+
+        MyButton(text = "Button1", modifier = Modifier.width(100.dp).constrainAs(button1) {
+            top.linkTo(parent.top, margin = 30.dp)
+            start.linkTo(parent.start, margin = 8.dp)
+        })
+
+        MyButton(text = "Button3", modifier = Modifier.constrainAs(button3) {
+            linkTo(top= parent.top, bottom = parent.bottom, topMargin = 8.dp, bottomMargin = 8.dp)
+            linkTo(start = button1.end, end = parent.end, startMargin = 8.dp, endMargin = 8.dp)
+            width = Dimension.fillToConstraints
+            height = Dimension.fillToConstraints
+        })
+
+        MyButton(text = "Button2", modifier = Modifier.width(200.dp).background(Color.Blue).constrainAs(button2) {
+            top.linkTo(button1.bottom, margin = 20.dp)
+            start.linkTo(parent.start, margin = 8.dp)
+        })
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun MainScreenPreview() {
-    MainScreen()
+    //MainScreen()
     //ChainScreen()
+    BarrierScreen()
 }
