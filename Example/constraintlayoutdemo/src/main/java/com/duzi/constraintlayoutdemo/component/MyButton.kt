@@ -75,6 +75,8 @@ fun BarrierScreen() {
     ConstraintLayout(Modifier.size(width = 400.dp, height = 400.dp)) {
         val (button1, button2, button3) = createRefs()
 
+        val barrier = createEndBarrier(button1, button2)
+
         MyButton(text = "Button1", modifier = Modifier.width(100.dp).constrainAs(button1) {
             top.linkTo(parent.top, margin = 30.dp)
             start.linkTo(parent.start, margin = 8.dp)
@@ -82,7 +84,9 @@ fun BarrierScreen() {
 
         MyButton(text = "Button3", modifier = Modifier.constrainAs(button3) {
             linkTo(top= parent.top, bottom = parent.bottom, topMargin = 8.dp, bottomMargin = 8.dp)
-            linkTo(start = button1.end, end = parent.end, startMargin = 8.dp, endMargin = 8.dp)
+            //linkTo(start = button1.end, end = parent.end, startMargin = 8.dp, endMargin = 8.dp)
+            end.linkTo(parent.end, margin = 8.dp)
+            start.linkTo(barrier, margin = 30.dp)
             width = Dimension.fillToConstraints
             height = Dimension.fillToConstraints
         })
