@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 
 @Composable
@@ -43,8 +44,30 @@ fun MainScreen() {
     }
 }
 
+@Composable
+fun ChainScreen() {
+    ConstraintLayout(Modifier.size(width = 400.dp, height = 400.dp)) {
+        val (button1, button2, button3) = createRefs()
+
+        createHorizontalChain(button1, button2, button3, chainStyle = ChainStyle.Packed)
+
+        MyButton(text = "Button1", modifier = Modifier.constrainAs(button1) {
+            centerVerticallyTo(parent)
+        })
+
+        MyButton(text = "Button2", modifier = Modifier.constrainAs(button2) {
+            centerVerticallyTo(parent)
+        })
+
+        MyButton(text = "Button3", modifier = Modifier.constrainAs(button3) {
+            centerVerticallyTo(parent)
+        })
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun MainScreenPreview() {
-    MainScreen()
+    //MainScreen()
+    ChainScreen()
 }
