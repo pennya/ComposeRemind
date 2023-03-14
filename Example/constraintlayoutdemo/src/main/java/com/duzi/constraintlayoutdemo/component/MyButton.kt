@@ -9,6 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 
 @Composable
 fun MyButton(text: String, modifier: Modifier = Modifier) {
@@ -39,7 +40,8 @@ fun MainScreen() {
         MyButton(text = "Button2", modifier = Modifier.constrainAs(button2) {
             top.linkTo(button1.bottom)
             bottom.linkTo(parent.bottom)
-            linkTo(parent.start, parent.end)
+            linkTo(parent.start, parent.end, startMargin = 16.dp, endMargin = 16.dp)
+            width = Dimension.fillToConstraints
         })
     }
 }
@@ -68,6 +70,6 @@ fun ChainScreen() {
 @Preview(showBackground = true)
 @Composable
 fun MainScreenPreview() {
-    //MainScreen()
-    ChainScreen()
+    MainScreen()
+    //ChainScreen()
 }
