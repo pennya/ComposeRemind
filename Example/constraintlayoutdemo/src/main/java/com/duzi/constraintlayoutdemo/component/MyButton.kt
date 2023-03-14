@@ -24,13 +24,21 @@ fun MainScreen() {
     ConstraintLayout(Modifier.size(width = 200.dp, height = 200.dp)) {
         val (button1, button2, button3) = createRefs()
         MyButton(text = "Button1", modifier = Modifier.constrainAs(button1) {
-            top.linkTo(parent.top, margin = 60.dp)
+            top.linkTo(parent.top)
+            bottom.linkTo(button2.top)
+
             // 방식 1
             linkTo(parent.start, parent.end)
 
             // 방식 2
             //start.linkTo(parent.start)
             //end.linkTo(parent.end)
+        })
+
+        MyButton(text = "Button2", modifier = Modifier.constrainAs(button2) {
+            top.linkTo(button1.bottom)
+            bottom.linkTo(parent.bottom)
+            linkTo(parent.start, parent.end)
         })
     }
 }
