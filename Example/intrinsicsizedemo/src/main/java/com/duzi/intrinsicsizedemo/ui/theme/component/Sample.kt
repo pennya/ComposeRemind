@@ -31,7 +31,7 @@ fun MainScreen() {
     Column(modifier = Modifier.background(Color.Green)) {
         Column(
             Modifier
-                .size(200.dp)
+                .width(200.dp)
                 .padding(5.dp)
                 .background(Color.Yellow)) {
             Column(modifier = Modifier.width(IntrinsicSize.Max)) {
@@ -54,7 +54,7 @@ fun MainScreen() {
 
         Column(
             Modifier
-                .size(200.dp)
+                .width(200.dp)
                 .padding(5.dp)
                 .background(Color.Magenta)) {
             Column(modifier = Modifier.width(IntrinsicSize.Min)) {
