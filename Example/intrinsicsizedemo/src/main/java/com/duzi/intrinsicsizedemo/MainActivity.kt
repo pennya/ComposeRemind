@@ -9,6 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.duzi.intrinsicsizedemo.ui.theme.ComposeRemindTheme
 import com.duzi.intrinsicsizedemo.ui.theme.component.IntrinsicSizeSample
+import com.duzi.intrinsicsizedemo.ui.theme.component.MainScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +21,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    IntrinsicSizeSample()
+                    MainScreen()
                 }
             }
         }
