@@ -1,9 +1,11 @@
 package com.duzi.lazylistdemo
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -13,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
@@ -43,9 +46,17 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen(itemArray: Array<out String>) {
+    val content = LocalContext.current
+    val onListItemClick = { text: String ->
+        Toast.makeText(content, text, Toast.LENGTH_SHORT).show()
+    }
+
     LazyColumn {
         items(itemArray) { model ->
-            MyListItem(model)
+            MyListItem(
+                item = model,
+                onItemClick = onListItemClick
+            )
         }
     }
 }
@@ -65,11 +76,12 @@ fun ImageLoader(item: String) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyListItem(item: String) {
+fun MyListItem(item: String, onItemClick: (String) -> Unit) {
     Card(
         modifier = Modifier
             .padding(8.dp)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clickable { onItemClick(item) },
         shape = RoundedCornerShape(10.dp),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 5.dp
