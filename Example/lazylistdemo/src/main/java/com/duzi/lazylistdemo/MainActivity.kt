@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,6 +16,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -44,19 +47,34 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MainScreen(itemArray: Array<out String>) {
     val content = LocalContext.current
+    val groupedItems = itemArray.groupBy { it.substringBefore(" ") }
     val onListItemClick = { text: String ->
         Toast.makeText(content, text, Toast.LENGTH_SHORT).show()
     }
 
     LazyColumn {
-        items(itemArray) { model ->
-            MyListItem(
-                item = model,
-                onItemClick = onListItemClick
-            )
+        groupedItems.forEach { (manufacturer, models) ->
+            stickyHeader {
+                Text(
+                    text = manufacturer,
+                    color = Color.White,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color.Gray)
+                        .padding(5.dp),
+                )
+            }
+
+            items(models) { model ->
+                MyListItem(
+                    item = model,
+                    onItemClick = onListItemClick
+                )
+            }
         }
     }
 }
