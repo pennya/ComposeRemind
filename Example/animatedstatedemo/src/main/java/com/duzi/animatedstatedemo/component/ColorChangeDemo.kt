@@ -1,5 +1,7 @@
 package com.duzi.animatedstatedemo.component
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
@@ -18,6 +20,14 @@ enum class BoxColor {
 fun ColorChangeDemo() {
     var colorState by remember { mutableStateOf(BoxColor.Red) }
 
+    val animatedColor: Color by animateColorAsState(
+        targetValue = when (colorState) {
+            BoxColor.Red -> Color.Red
+            BoxColor.Magenta -> Color.Magenta
+        },
+        animationSpec = tween(durationMillis = 4500)
+    )
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize()
@@ -26,7 +36,7 @@ fun ColorChangeDemo() {
             modifier = Modifier
                 .padding(20.dp)
                 .size(200.dp)
-                .background(Color.Red)
+                .background(animatedColor)
         )
 
         Button(
