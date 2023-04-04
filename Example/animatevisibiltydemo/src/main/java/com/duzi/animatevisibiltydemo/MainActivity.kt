@@ -65,27 +65,34 @@ fun MainScreen() {
 
         AnimatedVisibility(
             visible = boxVisible,
-            enter = expandHorizontally(
-                animationSpec = repeatable(
-                    iterations = 3,
-                    animation = tween(durationMillis = 1000)
-                )
-            ) + scaleIn(
-                animationSpec = tween(durationMillis = 3000)
+            enter = fadeIn(
+                animationSpec = tween(durationMillis = 5000)
             ),
             exit = fadeOut(
                 animationSpec = tween(durationMillis = 5000)
-            ).plus(
-                scaleOut(
-                    animationSpec = tween(durationMillis = 5000)
-                )
             )
         ) {
-            Box(
-                modifier = Modifier
-                    .size(200.dp)
-                    .background(color = Color.Red)
-            )
+            Row {
+                Box(
+                    modifier = Modifier
+                        .size(200.dp)
+                        .background(color = Color.Red)
+                )
+                Spacer(modifier = Modifier.width(20.dp))
+                Box(
+                    modifier = Modifier.
+                            animateEnterExit(
+                                enter = slideInVertically(
+                                    animationSpec = tween(durationMillis = 5000)
+                                ),
+                                exit = slideOutVertically(
+                                    animationSpec = tween(durationMillis = 5000)
+                                )
+                            )
+                        .size(150.dp)
+                        .background(Color.Green)
+                )
+            }
         }
     }
 }
