@@ -6,6 +6,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.*
+import androidx.compose.animation.core.KeyframesSpec
+import androidx.compose.animation.core.keyframes
+import androidx.compose.animation.core.repeatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -62,9 +65,21 @@ fun MainScreen() {
 
         AnimatedVisibility(
             visible = boxVisible,
-            enter = expandHorizontally() + scaleIn(animationSpec = tween(durationMillis = 3000)),
-            exit = fadeOut(animationSpec = tween(durationMillis = 5000))
-                .plus(scaleOut(animationSpec = tween(durationMillis = 5000)))
+            enter = expandHorizontally(
+                animationSpec = repeatable(
+                    iterations = 3,
+                    animation = tween(durationMillis = 1000)
+                )
+            ) + scaleIn(
+                animationSpec = tween(durationMillis = 3000)
+            ),
+            exit = fadeOut(
+                animationSpec = tween(durationMillis = 5000)
+            ).plus(
+                scaleOut(
+                    animationSpec = tween(durationMillis = 5000)
+                )
+            )
         ) {
             Box(
                 modifier = Modifier
