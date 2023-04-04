@@ -1,6 +1,8 @@
 package com.duzi.animatedstatedemo.component
 
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -30,7 +32,12 @@ fun MotionDemo() {
             BoxPosition.Start -> 0.dp
             BoxPosition.End -> screenWidth - boxSideLength
         },
-        animationSpec = tween(durationMillis = 500)
+        animationSpec = keyframes {
+            durationMillis = 1000
+            100.dp at 10 with LinearEasing
+            110.dp at 500 with LinearEasing
+            200.dp at 700 with LinearEasing
+        }
     )
 
     Column(modifier = Modifier.fillMaxSize()) {
