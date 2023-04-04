@@ -1,9 +1,11 @@
+@file:OptIn(ExperimentalAnimationApi::class)
+
 package com.duzi.animatevisibiltydemo
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
@@ -57,7 +59,11 @@ fun MainScreen() {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        AnimatedVisibility(visible = boxVisible) {
+        AnimatedVisibility(
+            visible = boxVisible,
+            enter = expandHorizontally() + scaleIn(),
+            exit = fadeOut().plus(scaleOut())
+        ) {
             Box(
                 modifier = Modifier
                     .size(200.dp)
