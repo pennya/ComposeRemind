@@ -3,6 +3,7 @@ package com.duzi.animatevisibiltydemo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
@@ -39,7 +40,7 @@ fun MainScreen() {
     var boxVisible by remember { mutableStateOf(true) }
 
     val onClick = { newState : Boolean ->
-        //boxVisible = newState
+        boxVisible = newState
     }
 
     Column(
@@ -56,7 +57,7 @@ fun MainScreen() {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        if (boxVisible) {
+        AnimatedVisibility(visible = boxVisible) {
             Box(
                 modifier = Modifier
                     .size(200.dp)
