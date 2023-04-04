@@ -65,30 +65,34 @@ fun MainScreen() {
 
         AnimatedVisibility(
             visible = boxVisible,
-            enter = fadeIn(
-                animationSpec = tween(durationMillis = 5000)
-            ),
-            exit = fadeOut(
-                animationSpec = tween(durationMillis = 5000)
-            )
+            enter = EnterTransition.None,
+            exit = ExitTransition.None
         ) {
             Row {
                 Box(
                     modifier = Modifier
+                        .animateEnterExit(
+                            enter = fadeIn(
+                                animationSpec = tween(durationMillis = 5000)
+                            ),
+                            exit = fadeOut(
+                                animationSpec = tween(durationMillis = 5000)
+                            )
+                        )
                         .size(200.dp)
                         .background(color = Color.Red)
                 )
                 Spacer(modifier = Modifier.width(20.dp))
                 Box(
-                    modifier = Modifier.
-                            animateEnterExit(
-                                enter = slideInVertically(
-                                    animationSpec = tween(durationMillis = 5000)
-                                ),
-                                exit = slideOutVertically(
-                                    animationSpec = tween(durationMillis = 5000)
-                                )
+                    modifier = Modifier
+                        .animateEnterExit(
+                            enter = slideInVertically(
+                                animationSpec = tween(durationMillis = 5000)
+                            ),
+                            exit = slideOutVertically(
+                                animationSpec = tween(durationMillis = 5000)
                             )
+                        )
                         .size(150.dp)
                         .background(Color.Green)
                 )
