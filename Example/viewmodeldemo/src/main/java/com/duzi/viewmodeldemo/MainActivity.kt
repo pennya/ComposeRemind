@@ -63,7 +63,7 @@ fun MainScreen(
         }
 
         Text(
-            text = "Temperature Converter",
+            text = "Temperature Converter (${textState})",
             modifier = Modifier.padding(20.dp),
             style = MaterialTheme.typography.headlineLarge
         )
@@ -100,6 +100,9 @@ fun InputRow(
         OutlinedTextField(
             value = textState,
             onValueChange = { onTextChange(it) },
+            singleLine = true,
+            label = { Text(text = "Enter temperature") },
+            modifier = Modifier.padding(10.dp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             textStyle = TextStyle(fontWeight = FontWeight.Bold, fontSize = 30.sp),
             trailingIcon = {
