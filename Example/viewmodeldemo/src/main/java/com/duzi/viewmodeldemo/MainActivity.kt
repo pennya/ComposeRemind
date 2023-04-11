@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainScreen()
+                    ScreenSetup()
                 }
             }
         }
@@ -29,19 +29,34 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun ScreenSetup() {
-    MainScreen()
+fun ScreenSetup(viewModel: DemoViewModel = DemoViewModel()) {
+    MainScreen(
+        isFahrenheit = viewModel.isFahrenheit,
+        result = viewModel.result,
+        convertTemp = { viewModel.convertTemp(it) },
+        switchChange = { viewModel.switchChange() }
+    )
 }
 
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    isFahrenheit: Boolean,
+    result: String,
+    convertTemp: (String) -> Unit,
+    switchChange: () -> Unit
+) {
 
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun DefaultPreview() {
+fun DefaultPreview(viewModel: DemoViewModel = DemoViewModel()) {
     ComposeRemindTheme {
-        MainScreen()
+        MainScreen(
+            isFahrenheit = viewModel.isFahrenheit,
+            result = viewModel.result,
+            convertTemp = { viewModel.convertTemp(it) },
+            switchChange = { viewModel.switchChange() }
+        )
     }
 }
