@@ -5,15 +5,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -25,8 +22,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.duzi.roomdemo.model.Product
 import com.duzi.roomdemo.presentation.MainViewModel
 import com.duzi.roomdemo.ui.theme.ComposeRemindTheme
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,9 +56,48 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+private var index = 0
+
 @Composable
 fun ScreenSetup(viewModel: MainViewModel) {
+    val products by viewModel.products.collectAsState()
+    val results by viewModel.searchResults.collectAsState()
+    println("products : $products")
+    println("results : $results")
 
+    Row {
+        Button(
+            onClick = {
+                println("call insertProduct")
+                viewModel.insertProduct(Product(0, "test${index++}", 1))
+                runBlocking { delay(3000) }
+                println("call findProduct")
+                viewModel.findProduct("test0")
+            },
+            modifier = Modifier
+                .size(100.dp, 50.dp)
+                .padding(10.dp)
+        ) {
+            Text(text = "Insert")
+        }
+
+        Spacer(modifier = Modifier.width(10.dp))
+
+        Button(
+            onClick = {
+                println("call deleteProduct")
+                viewModel.deleteProduct("test0")
+                runBlocking { delay(3000) }
+                println("call findProduct")
+                viewModel.findProduct("test1")
+            },
+            modifier = Modifier
+                .size(100.dp, 50.dp)
+                .padding(10.dp)
+        ) {
+            Text(text = "Delete")
+        }
+    }
 }
 
 @Composable

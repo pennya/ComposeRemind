@@ -4,14 +4,9 @@ import com.duzi.roomdemo.model.Product
 import com.duzi.roomdemo.model.ProductDao
 import com.duzi.roomdemo.model.toDto
 import com.duzi.roomdemo.model.toEntity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 
 // TODO hilt migration with interface + datasource
@@ -27,6 +22,9 @@ class ProductRepository(private val productDao: ProductDao) {
 
     fun findProduct(name: String): List<Product> {
         return runBlocking(Dispatchers.IO) {
+            // search delay
+            delay(10000)
+            println("#3 current thread: ${Thread.currentThread().name}")
             productDao.findProduct(name).map {
                 it.toDto()
             }
@@ -40,11 +38,8 @@ class ProductRepository(private val productDao: ProductDao) {
     }
 
     fun getAllProducts(): Flow<List<Product>> {
-        return flow {
-            val products = productDao.getAllProducts().map {
-                it.toDto()
-            }
-            emit(products)
+        return productDao.getAllProductsFlow().map { entities ->
+            entities.map { it.toDto() }
         }
     }
 }

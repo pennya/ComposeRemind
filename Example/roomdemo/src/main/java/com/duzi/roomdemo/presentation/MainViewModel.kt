@@ -6,7 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.duzi.roomdemo.data.ProductRepository
 import com.duzi.roomdemo.model.Product
 import com.duzi.roomdemo.model.ProductRoomDatabase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
 // TODO hilt migration
 class MainViewModel(application: Application): ViewModel() {
@@ -15,6 +17,10 @@ class MainViewModel(application: Application): ViewModel() {
     private val _products: MutableStateFlow<List<Product>> = MutableStateFlow(emptyList())
     val products: StateFlow<List<Product>>
         get() = _products.asStateFlow()
+
+    private val _searchResults: MutableStateFlow<List<Product>> = MutableStateFlow(emptyList())
+    val searchResults: StateFlow<List<Product>>
+        get() = _searchResults.asStateFlow()
 
     init {
         val database = ProductRoomDatabase.getInstance(application)
@@ -30,8 +36,13 @@ class MainViewModel(application: Application): ViewModel() {
         repository.insertProduct(product)
     }
 
-    fun findProduct(name: String): List<Product> {
-        return repository.findProduct(name)
+    fun findProduct(name: String) {
+        println("#1 current thread: ${Thread.currentThread().name}")
+        viewModelScope.launch(Dispatchers.IO) {
+            println("#2 current thread: ${Thread.currentThread().name}")
+            val results = repository.findProduct(name)
+            _searchResults.value = results
+        }
     }
 
     fun deleteProduct(name: String) {
