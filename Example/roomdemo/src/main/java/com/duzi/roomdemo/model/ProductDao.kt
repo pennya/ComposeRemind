@@ -12,9 +12,9 @@ interface ProductDao {
     fun insertProduct(product: Product)
 
     @Query("SELECT * FROM products WHERE productName = :name")
-    fun findProduct(name: String): Product
+    fun findProduct(name: String): List<Product>
 
-    @Query("SELECT * FROM products WHERE productName = :name")
+    @Query("DELETE FROM products WHERE productName = :name")
     fun deleteProduct(name: String)
 
     @Query("SELECT * FROM products")

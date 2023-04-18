@@ -20,7 +20,7 @@ class ProductRepository(private val productDao: ProductDao) {
         }
     }
 
-    fun findProduct(name: String): Product {
+    fun findProduct(name: String): List<Product> {
         return runBlocking(Dispatchers.IO) {
             productDao.findProduct(name)
         }
