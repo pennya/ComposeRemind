@@ -6,11 +6,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -25,8 +26,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.duzi.roomdemo.model.Product
 import com.duzi.roomdemo.presentation.MainViewModel
 import com.duzi.roomdemo.ui.theme.ComposeRemindTheme
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,15 +55,20 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-private var index = 0
-
 @Composable
 fun ScreenSetup(viewModel: MainViewModel) {
-    val products by viewModel.products.collectAsState()
-    val results by viewModel.searchResults.collectAsState()
+    val products by viewModel.products.collectAsState(listOf())
+    val results by viewModel.searchResults.collectAsState(listOf())
     println("products : $products")
     println("results : $results")
 
+    MainScreen(
+        products = products,
+        results = results,
+        viewModel = viewModel
+    )
+
+    /*
     Row {
         Button(
             onClick = {
@@ -98,13 +102,107 @@ fun ScreenSetup(viewModel: MainViewModel) {
             Text(text = "Delete")
         }
     }
+    */
 }
 
 @Composable
 fun MainScreen(
-    viewModel: MainViewModel
+    products: List<Product>,
+    results: List<Product>,
+    viewModel: MainViewModel,
 ) {
+    var productName by remember { mutableStateOf("") }
+    var productQuantity by remember { mutableStateOf("") }
+    var searching by remember { mutableStateOf(false) }
 
+    val onProductTextChange = { text: String ->
+        productName = text
+    }
+
+    val onQuantityTextChange = { text: String ->
+        productQuantity = text
+    }
+
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        CustomTextField(
+            title = "Product Name",
+            textState = productName,
+            onTextChange = onProductTextChange,
+            keyboardType = KeyboardType.Text
+        )
+        CustomTextField(
+            title = "Quantity",
+            textState = productQuantity,
+            onTextChange = onQuantityTextChange,
+            keyboardType = KeyboardType.Number
+        )
+
+        Row(
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp)
+        ) {
+            Button(onClick = {
+                if (productQuantity.isNotEmpty()) {
+                    viewModel.insertProduct(
+                        Product(
+                            productName = productName,
+                            quantity = productQuantity.toInt()
+                        )
+                    )
+                    searching = false
+                }
+            }) {
+                Text(text = "Add")
+            }
+
+            Button(onClick = {
+                searching = true
+                viewModel.findProduct(productName)
+            }) {
+                Text(text = "Search")
+            }
+
+            Button(onClick = {
+                searching = false
+                viewModel.deleteProduct(productName)
+            }) {
+                Text(text = "Delete")
+            }
+
+            Button(onClick = {
+                searching = false
+                productName = ""
+                productQuantity = ""
+            }) {
+                Text(text = "Clear")
+            }
+        }
+
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(10.dp)
+        ) {
+            val list = if (searching) results else products
+
+            item {
+                TitleRow(head1 = "ID", head2 = "Product", head3 = "Quantity")
+            }
+
+            itemsIndexed(list) { index, product ->
+                ProductRow(
+                    id = product.id,
+                    name = product.productName,
+                    quantity = product.quantity
+                )
+            }
+        }
+    }
 }
 
 @Composable
