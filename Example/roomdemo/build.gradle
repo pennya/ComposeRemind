@@ -62,11 +62,16 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
 
+    // room
     implementation 'androidx.room:room-runtime:2.4.2'
     implementation 'androidx.room:room-ktx:2.4.2'
     annotationProcessor 'androidx.room:room-compiler:2.4.2'
     kapt 'androidx.room:room-compiler:2.4.2'
 
+    // coroutine
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
+
+    // viewmodel
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1'
 }
