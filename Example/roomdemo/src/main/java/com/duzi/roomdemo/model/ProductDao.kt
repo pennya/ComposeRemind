@@ -18,5 +18,5 @@ interface ProductDao {
     fun deleteProduct(name: String)
 
     @Query("SELECT * FROM products")
-    fun getAllProducts(): Flow<List<ProductEntity>>
+    suspend fun getAllProducts(): List<ProductEntity>
 }
