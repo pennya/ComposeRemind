@@ -1,6 +1,6 @@
 package com.duzi.roomdemo.data
 
-import com.duzi.roomdemo.model.Product
+import com.duzi.roomdemo.model.ProductEntity
 import com.duzi.roomdemo.model.ProductDao
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -14,13 +14,13 @@ class ProductRepository(private val productDao: ProductDao) {
 
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
 
-    fun insertProduct(product: Product) {
+    fun insertProduct(productEntity: ProductEntity) {
         coroutineScope.launch(Dispatchers.IO) {
-            productDao.insertProduct(product)
+            productDao.insertProduct(productEntity)
         }
     }
 
-    fun findProduct(name: String): List<Product> {
+    fun findProduct(name: String): List<ProductEntity> {
         return runBlocking(Dispatchers.IO) {
             productDao.findProduct(name)
         }
@@ -32,7 +32,7 @@ class ProductRepository(private val productDao: ProductDao) {
         }
     }
 
-    fun getAllProducts(): Flow<List<Product>> {
+    fun getAllProducts(): Flow<List<ProductEntity>> {
         return productDao.getAllProducts()
     }
 }

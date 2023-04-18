@@ -9,14 +9,14 @@ import kotlinx.coroutines.flow.Flow
 interface ProductDao {
 
     @Insert
-    fun insertProduct(product: Product)
+    fun insertProduct(productEntity: ProductEntity)
 
     @Query("SELECT * FROM products WHERE productName = :name")
-    fun findProduct(name: String): List<Product>
+    fun findProduct(name: String): List<ProductEntity>
 
     @Query("DELETE FROM products WHERE productName = :name")
     fun deleteProduct(name: String)
 
     @Query("SELECT * FROM products")
-    fun getAllProducts(): Flow<List<Product>>
+    fun getAllProducts(): Flow<List<ProductEntity>>
 }
