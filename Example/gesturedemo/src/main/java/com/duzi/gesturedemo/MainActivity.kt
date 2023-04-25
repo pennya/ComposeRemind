@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.imageResource
@@ -36,7 +37,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ScrollableModifiers()
+                    MultiTouchDemo()
                 }
             }
         }
@@ -156,7 +157,10 @@ fun ScrollableModifiers() {
 
     val image = ImageBitmap.imageResource(id = R.drawable.android_icon)
 
-    Box(Modifier.fillMaxSize().background(Color.Green)) {
+    Box(
+        Modifier
+            .fillMaxSize()
+            .background(Color.Green)) {
         Box(
             Modifier
                 .size(150.dp)
@@ -199,6 +203,35 @@ fun ScrollableModifier() {
     }
 }
 
+@Composable
+fun MultiTouchDemo() {
+    var scale by remember { mutableStateOf(1f) }
+    var angle by remember { mutableStateOf(0f) }
+    var offset by remember { mutableStateOf(Offset.Zero) }
+    val state = rememberTransformableState { zoomChange, offsetChange, rotationChange ->
+        scale *= zoomChange
+        angle += rotationChange
+        offset += offsetChange
+    }
+
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Box(
+            Modifier.graphicsLayer(
+                scaleX = scale,
+                scaleY = scale,
+                rotationZ = angle,
+                translationX = offset.x,
+                translationY = offset.y
+            )
+                .transformable(state = state)
+                .background(Color.Blue)
+                .size(100.dp)
+        )
+    }
+}
 
 @Preview(showBackground = true)
 @Composable
