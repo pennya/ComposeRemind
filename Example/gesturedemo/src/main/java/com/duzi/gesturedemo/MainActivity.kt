@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    DragDemo()
+                    ScrollableModifier()
                 }
             }
         }
@@ -147,6 +147,31 @@ fun DragDemo() {
         }
     }
 }
+
+@Composable
+fun ScrollableModifier() {
+    var offset by remember { mutableStateOf(0f) }
+
+    Box(
+        Modifier
+            .fillMaxSize()
+            .scrollable(
+                orientation = Orientation.Vertical,
+                state = rememberScrollableState { delta ->
+                    offset += delta
+                    delta
+                }
+            )
+    ) {
+        Box(
+            modifier = Modifier
+                .offset { IntOffset(0, offset.roundToInt()) }
+                .size(100.dp)
+                .background(Color.Blue)
+        )
+    }
+}
+
 
 @Preview(showBackground = true)
 @Composable
