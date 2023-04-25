@@ -3,7 +3,7 @@ package com.duzi.gesturedemo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.gestures.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
@@ -13,9 +13,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
@@ -33,7 +36,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ScrollableModifier()
+                    ScrollableModifiers()
                 }
             }
         }
@@ -149,6 +152,30 @@ fun DragDemo() {
 }
 
 @Composable
+fun ScrollableModifiers() {
+
+    val image = ImageBitmap.imageResource(id = R.drawable.android_icon)
+
+    Box(Modifier.fillMaxSize().background(Color.Green)) {
+        Box(
+            Modifier
+                .size(150.dp)
+                .verticalScroll(rememberScrollState())
+                .horizontalScroll(rememberScrollState())
+        ) {
+            Canvas(
+                modifier = Modifier.size(360.dp, 270.dp)
+            ) {
+                drawImage(
+                    image = image,
+                    topLeft = Offset(0f, 0f)
+                )
+            }
+        }
+    }
+}
+
+@Composable
 fun ScrollableModifier() {
     var offset by remember { mutableStateOf(0f) }
 
@@ -177,6 +204,6 @@ fun ScrollableModifier() {
 @Composable
 fun DefaultPreview() {
     ComposeRemindTheme {
-        DragDemo()
+        ScrollableModifiers()
     }
 }
