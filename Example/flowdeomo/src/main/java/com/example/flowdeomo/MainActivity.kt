@@ -16,6 +16,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -36,7 +37,7 @@ class MainActivity : ComponentActivity() {
                     NavHost(navController = navController, startDestination = "screen1") {
                         composable("screen1") {
                             val viewModel = viewModel<ScreenViewModel>()
-                            val time by viewModel.timer.collectAsState()
+                            val time by viewModel.timer.collectAsStateWithLifecycle()
                             Screen1(
                                 time = time
                             ) {
