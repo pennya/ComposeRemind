@@ -1,5 +1,6 @@
 package com.duzi.compose.stateexample.component
 
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,6 +25,7 @@ fun MyTextFieldStateHoisting() {
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyTextField(text: String, onTextChange: (String) -> Unit) {
     // 상태가 없으므로 재사용 가능한 비상태 컴포저블

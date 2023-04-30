@@ -1,4 +1,3 @@
-@file:OptIn(ExperimentalMaterialApi::class)
 
 package com.duzi.swipedemo
 
@@ -36,6 +35,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MainScreen() {
     val parentBoxWidth = 320.dp
@@ -105,6 +105,6 @@ fun MainScreen() {
 @Composable
 fun DefaultPreview() {
     ComposeRemindTheme {
-
+        MainScreen()
     }
 }

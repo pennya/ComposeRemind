@@ -254,6 +254,7 @@ fun ProductRow(id: Int, name: String, quantity: Int) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomTextField(
     title: String,
@@ -279,7 +280,7 @@ fun CustomTextField(
 
 // TODO hilt migration
 class MainViewModelFactory(private val application: Application): ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return MainViewModel(application) as T
     }
 }

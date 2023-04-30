@@ -88,6 +88,7 @@ fun MainScreen(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InputRow(
     isFahrenheit: Boolean,
